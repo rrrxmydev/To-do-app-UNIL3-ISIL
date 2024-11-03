@@ -54,6 +54,31 @@ class LoginSerializer(serializers.Serializer):
         data["user"] = user
         return data
 
+class UpdateUserSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_email = serializers.EmailField(required=False)
+    new_password = serializers.CharField(required=False, write_only=True)
+
+    def validate(self,data):
+        user = self.context['request'].user
+
+        old_password = data.get('old_password')
+        new_email = data.get('new_email')
+        new_password = data.get('new_password')
+
+        if new_email or new_password:
+            # if old_password and not user.check_password(old_password):
+            if not user.check_password(old_password):
+                raise serializers.ValidationError({"password": _("Incorrect password.")})
+        else:
+            raise serializers.ValidationError({"Error":"You must provide either new_email or new_password to update."})
+        
+        return data
+        
+
+
+
+
     
         
 

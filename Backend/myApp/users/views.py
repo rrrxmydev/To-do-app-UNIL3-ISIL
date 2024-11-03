@@ -1,9 +1,11 @@
 from rest_framework.views import APIView
-from .serializers import UserSerializer,LoginSerializer
+from .models import User
+from .serializers import UserSerializer,LoginSerializer,UpdateUserSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny,IsAuthenticated
+from .permissions import IsEmailVerified
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 
@@ -98,7 +100,31 @@ class VerifyOTPView(APIView):
             return Response({"message":"Email verified successfully."},status=status.HTTP_200_OK)
         else:
             return Response({"error": "Invalid or expired OTP."}, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateUserView(APIView):
+    permission_classes = [IsEmailVerified]
+    def put(self,request):
+        serializer = UpdateUserSerializer(data= request.data,context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        new_email = serializer.validated_data.get('new_email')
+        new_password = serializer.validated_data.get('new_password')
+        user = request.user
+
+        if new_email:
+            user.email = new_email
+            user.is_email_verified = False
+        if new_password:
+            user.set_password(new_password)
+        user.save()
+
+        return Response({"detail":"User Updated successfully"},status=status.HTTP_200_OK)
+
+
         
+
+
+
         
 
 
