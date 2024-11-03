@@ -135,3 +135,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '3cb388c3f8757c'
+EMAIL_HOST_PASSWORD = 'b80b568f768414'
+EMAIL_PORT = '2525'
