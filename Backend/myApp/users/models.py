@@ -22,14 +22,3 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
-# class OTP(models.Model):
-#     user = models.ForeignKey(User,on_delete=models.CASCADE)
-#     otp = models.CharField(max_length=6)
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def is_valid(self):
-#         return timezone.now() < self.created_at + timezone.timedelta(minutes=5)
-    
-#     def __str__(self):
-#         return f'{self.user} - {self.otp}'
