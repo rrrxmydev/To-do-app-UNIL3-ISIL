@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'myApp',
     'users',
     'boards',
-    'sections'
+    'sections',
+    'tasks'
 ]
 
 MIDDLEWARE = [

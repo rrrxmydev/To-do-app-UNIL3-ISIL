@@ -16,25 +16,26 @@ class CreateListBoardView(APIView):
             return Response(BoardSerializer(board).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def get(self,request):
-        owned_boards = Board.objects.filter(owner = request.user)
-        joined_boards = Board.objects.filter(members = request.user).exclude(owner=request.user)
+    def get(self, request):
+        owned_boards = Board.objects.filter(owner=request.user).prefetch_related('sections')
+        joined_boards = Board.objects.filter(members=request.user).exclude(owner=request.user).prefetch_related('sections')
 
         if owned_boards or joined_boards:
-            serializer = BoardSerializer(owned_boards,many=True)
-            serializer2 = BoardSerializer(joined_boards,many=True)
+            owned_serializer = BoardSerializer(owned_boards, many=True)
+            joined_serializer = BoardSerializer(joined_boards, many=True)
             return Response({
-                "message":"succuss",
-                "owned_boards":{
-                    "number_of_boards":len(serializer.data),
-                    "data":serializer.data
+                "message": "success",
+                "owned_boards": {
+                    "number_of_boards": len(owned_serializer.data),
+                    "data": owned_serializer.data
                 },
-                "joined_boards":{
-                    "number_of_boards":len(serializer2.data),
-                    "data":serializer2.data
+                "joined_boards": {
+                    "number_of_boards": len(joined_serializer.data),
+                    "data": joined_serializer.data
                 }
-            },status=status.HTTP_200_OK)
-        return Response({"message":"this user don't have any boards"},status=status.HTTP_404_NOT_FOUND)
+            }, status=status.HTTP_200_OK)
+        
+        return Response({"message": "this user doesn't have any boards"}, status=status.HTTP_404_NOT_FOUND)
 
 class DeleteBoardView(APIView):
     permission_classes = [IsEmailVerified]
