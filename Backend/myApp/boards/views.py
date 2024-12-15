@@ -17,8 +17,9 @@ class CreateListBoardView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request):
-        owned_boards = Board.objects.filter(owner=request.user).prefetch_related('sections')
-        joined_boards = Board.objects.filter(members=request.user).exclude(owner=request.user).prefetch_related('sections')
+        owned_boards = Board.objects.filter(owner=request.user).prefetch_related('sections__tasks')
+        joined_boards = Board.objects.filter(members=request.user).exclude(owner=request.user).prefetch_related('sections__tasks')
+        
 
         if owned_boards or joined_boards:
             owned_serializer = BoardSerializer(owned_boards, many=True)

@@ -3,13 +3,15 @@ from rest_framework import serializers
 from .models import Board,BoardInvitation
 from users.models import User
 from sections.serializers import SectionSerializer
+from tasks.serializers import TasksSerializer
 
 class BoardSerializer(serializers.ModelSerializer):
     members = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='email', many=True, required=False)
-    sections = SectionSerializer(many=True, read_only=True)
+    sections = SectionSerializer(many=True,read_only=True)
+    tasks = TasksSerializer(many=True,read_only=True)
     class Meta:
         model = Board
-        fields =['id', 'title', 'members','sections','created_at']
+        fields =['id', 'title', 'members','sections','tasks','created_at']
         read_only_fields = ['id', 'created_at']
     
     def create(self, validated_data):
