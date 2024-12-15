@@ -1,0 +1,24 @@
+.AddTaskButton{
+color:#f4edf8;
+font-size:14px;
+color:#1A4372;
+font-weight:600;
+
+}
+
+.AddTaskButton:hover{
+
+color:#0060cd;
+/* color:rgb(79, 0, 0); */
+}                     
+                
+.pfp{
+    cursor:pointer;
+}
+
+.pfp img:hover{
+
+    
+
+
+}

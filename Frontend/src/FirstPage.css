@@ -1,0 +1,324 @@
+.LeftSlide{
+
+    background-color: #1A4372;
+
+
+
+
+}
+
+
+.RightSlide{
+
+    background-color: white;
+    color:#1A4372;
+    font-family: 'Righteous';
+
+}
+
+.LeftSlideLogo{
+    font-family: 'Righteous';
+    line-height: 0.8;
+    user-select: none;
+
+}
+
+.FirstPageLeftSlideButton{
+
+    color:#1A4372;    
+    background-color: white;
+    font-size: 30px;
+    font-family: 'Righteous';
+    border: none;
+    border-radius: 30px;
+    padding:10px;
+    cursor:pointer;
+}
+
+
+
+.FirstPageRightSlideButton:hover{
+
+background-color: #122e4e;
+    
+}
+
+.FirstPageLeftSlideButton{
+
+
+    background-color: white;
+}
+
+.FirstPageLeftSlideButton:hover{
+
+    
+    background-color:rgb(240, 240, 240);
+}
+.LoginInput{
+
+    border:solid #1A4372;  
+    background-color: white;
+    padding: 10px;
+    margin: 0px;
+}
+
+
+
+
+
+.FirstPageRightSlideButton{
+
+    background-color:#1A4372;    
+    color: white;
+    font-size: 30px;
+    font-family: 'Righteous';
+    border: none;
+    border-radius: 30px;
+    padding:10px;
+    cursor:pointer;
+
+
+}
+
+
+@media (max-width: 5000px) {
+    .RegisterResponsiveLogo {
+      font-size: 50px;
+      top:2%;
+      right:4%;
+      
+
+      /* Smaller size for tablets */
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .RegisterResponsiveLogo {
+      font-size: 22px;
+      top:2%;
+      right:2%;
+
+
+      /* Smaller size for mobile phones */
+    }
+
+    .ResponsiveContainer{
+
+      font-size: 30px;
+
+    }
+    .LeftSlideLogo{
+
+      font-size: 20px;
+
+    }
+
+  }
+
+
+@media (max-width: 5000px) {
+    .RegisterTitle {
+      font-size: 60px; /* Smaller size for tablets */
+    }
+    .ResponsiveContainer{
+      display: flex;
+      flex-direction: row;
+      
+    }
+
+    .RegisterResponsiveLogo{
+      top: "3%",
+
+    }
+
+    .LeftSlide,
+  .RightSlide {
+    width:50%; /* Full width for each slide */
+    height: 100vh;
+      right:100%;
+    /* Each slide takes full viewport height */
+  }
+
+    .RightSlide{
+      width: 50%;
+      }
+  
+    
+  }
+  
+  @media (min-width: 800px) {
+    .RegisterTitle {
+      font-size: 40px; /* Smaller size for mobile phones */
+    }
+    .LeftSlideLogo{
+      font-size: 200px;
+    }
+  }
+
+
+
+
+
+
+
+/* Parent container for both slides */
+.ResponsiveContainer {
+  display: flex;
+  flex-direction: row; /* Default layout for desktop */
+  width: 100%; /* Full-width container */
+  height: 100vh; /* Full-height of viewport */
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent horizontal scrolling */
+}
+
+/* LeftSlide: Default (desktop view) */
+.LeftSlide {
+  flex: 1; /* Take up 50% of the width */
+  height: 100vh; /* Full viewport height */
+  background-color: #1A4372;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+/* RightSlide: Default (desktop view) */
+.RightSlide {
+  flex: 1; /* Take up 50% of the width */
+  height: 100vh; /* Full viewport height */
+  background-color: white;
+  color: #1A4372;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+/* Mobile View */
+@media (max-width: 800px) {
+  .ResponsiveContainer {
+    flex-direction: column; /* Stack slides vertically */
+    height: auto; /* Allow each slide to control its own height */
+  }
+
+  .LeftSlide,
+  .RightSlide {
+    width: 100%; /* Full width for each slide */
+    height: 100vh; /* Each slide takes full viewport height */
+  }
+
+  /* LeftSlide adjustments for smaller screens */
+  .LeftSlideLogo p {
+    font-size: 150px; /* Adjust font size */
+  }
+
+  .LeftSlideP {
+    font-size: 16px; /* Adjust paragraph text size */
+  }
+
+  .FirstPageLeftSlideButton {
+    font-size: 16px; /* Adjust button size */
+  }
+
+  /* RightSlide adjustments for smaller screens */
+  .RightSlide h1 {
+    font-size: 30px; /* Adjust heading size */
+  }
+
+  .LoginInput {
+    padding: 8px; /* Adjust input padding */
+  }
+
+  .FirstPageRightSlideButton {
+    font-size: 16px; /* Adjust button size */
+  }
+  .ResponsiveContainer{
+
+    flex-direction: column;
+  
+  }
+}
+
+
+
+/* 
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+*/
+
+/* Parent container for both slides */
+.ResponsiveContainer {
+  display: flex; /* Flexbox for layout */
+  flex-direction: row; /* Default: side-by-side */
+  width: 100%; /* Full width of viewport */
+  height: 100vh; /* Full viewport height */
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* LeftSlide: Default style */
+.LeftSlide {
+  flex: 1; /* Take 50% of the width */
+  height: 100vh; /* Full height of container */
+  background-color: #1A4372; /* Keep the blue color */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically centered content */
+  align-items: center; /* Horizontally centered content */
+  z-index: 1; /* Ensure it stacks properly */
+}
+
+/* RightSlide: Default style */
+.RightSlide {
+  flex: 1; /* Take 50% of the width */
+  height: 100%; /* Full height of container */
+  background-color: white; /* Keep white color */
+  color: #1A4372;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically centered content */
+  align-items: center; /* Horizontally centered content */
+  z-index: 1; /* Ensure it stacks properly */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 800px) {
+  .ResponsiveContainer {
+    flex-direction: column; /* Stack slides vertically */
+  }
+
+  .LeftSlide,
+  .RightSlide {
+    width: 100%; /* Full width for each slide */
+    height: 10%; /* Full viewport height */
+  }
+
+  .ResponsiveContainer{
+
+    height: 210vh;
+
+  }
+}
