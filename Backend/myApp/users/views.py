@@ -1,5 +1,4 @@
 from rest_framework.views import APIView
-from .models import User
 from .serializers import UserSerializer,LoginSerializer,UpdateUserSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
