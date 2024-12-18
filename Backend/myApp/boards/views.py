@@ -41,34 +41,34 @@ class CreateListBoardView(APIView):
 class DeleteBoardView(APIView):
     permission_classes = [IsEmailVerified]
     def delete(self, request, board_id):
-        # Fetch the board instance
+        
         board = get_object_or_404(Board, id=board_id)
 
-        # Ensure the requester is the board owner
+        
         if board.owner != request.user:
             return Response(
                 {"message": "You do not have permission to delete this board."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        # Delete the board
+        
         board.delete()
         return Response({"message": "Board deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
 class RenameBoardView(APIView):
     permission_classes = [IsEmailVerified]
     def put(self, request, board_id):
-        # Fetch the board instance
+        
         board = get_object_or_404(Board, id=board_id)
 
-        # Ensure the requester is the board owner
+        
         if board.owner != request.user:
             return Response(
                 {"message": "You do not have permission to rename this board."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        # Get the new title from the request
+        
         new_title = request.data.get("title")
         if not new_title:
             return Response(
@@ -76,7 +76,7 @@ class RenameBoardView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Update the board's title
+        
         board.title = new_title
         board.save()
 
@@ -131,38 +131,53 @@ class DeclineInvitationView(APIView):
         }, status=status.HTTP_200_OK)
 
 class SendInvitationView(APIView):
+    permission_classes = [IsEmailVerified]
+
     def post(self, request, **kwargs):
         board_id = kwargs.get('board_id')
 
-        # Retrieve the board by ID
+        
         try:
             board = Board.objects.get(id=board_id)
         except Board.DoesNotExist:
             return Response({"message": "Board not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        # Prepare context for serializer
-        serializer = BoardInvitationSerializer(data=request.data, context={"board": board, "inviter": request.user})
+        
+        serializer = BoardInvitationSerializer(
+            data=request.data,
+            context={"board": board, "inviter": request.user}
+        )
+
+        
         if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Invitation sent!"}, status=status.HTTP_201_CREATED)
+            invitation = serializer.save()
+            return Response(
+                {
+                    "message": "Invitation sent successfully!",
+                    "invitation": BoardInvitationSerializer(invitation).data
+                },
+                status=status.HTTP_201_CREATED
+            )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class ListInvitationView(APIView):
     permission_classes = [IsEmailVerified]
 
-    def get(self,request):
-        invitations  = BoardInvitation.objects.filter(invitee =request.user)    
-        print("invitations=====",invitations)
-        serializer = BoardInvitationSerializer(invitations,many=True)
-        if invitations:
+    def get(self, request):
+        invitations = BoardInvitation.objects.filter(invitee=request.user)    
+        serializer = BoardInvitationSerializer(invitations, many=True)
+        if invitations.exists():
             return Response({
-                "message":"invitations found",
-                "invitations":serializer.data
-            },status=status.HTTP_200_OK)
+                "message": "invitations found",
+                "invitations": serializer.data
+            }, status=status.HTTP_200_OK)
         return Response({
-            "message":"there is no invitations"
-        },status=status.HTTP_404_NOT_FOUND)
+            "message": "there are no invitations"
+        }, status=status.HTTP_404_NOT_FOUND)
+
 
 
 

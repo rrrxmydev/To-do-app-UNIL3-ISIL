@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         validated_data.pop('password_confirmation')
 
-        user = User(**validated_data) #**validated_data means remaining data
+        user = User(**validated_data) 
 
         user.set_password(validated_data['password'])
         user.save()
@@ -40,17 +40,17 @@ class LoginSerializer(serializers.Serializer):
         email = data.get("email")
         password = data.get("password")
 
-        # Check if the email exists
+        
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError({"email": _("This email is not registered.")})
 
-        # Check if the password is correct
+        
         if not user.check_password(password):
             raise serializers.ValidationError({"password": _("Incorrect password.")})
 
-        # Both email and password are correct
+        
         data["user"] = user
         return data
 
@@ -67,7 +67,7 @@ class UpdateUserSerializer(serializers.Serializer):
         new_password = data.get('new_password')
 
         if new_email or new_password:
-            # if old_password and not user.check_password(old_password):
+            
             if not user.check_password(old_password):
                 raise serializers.ValidationError({"password": _("Incorrect password.")})
         else:
